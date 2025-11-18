@@ -58,7 +58,6 @@
             transition: transform 0.1s ease, box-shadow 0.3s ease;
         }
 
-        /* Scroll Animation Classes */
         .hidden {
             opacity: 0;
             transform: translateY(50px);
@@ -70,7 +69,6 @@
             transform: translateY(0);
         }
 
-        /* Floating Animation for Icons */
         @keyframes float {
             0% { transform: translateY(0px); }
             50% { transform: translateY(-10px); }
@@ -85,12 +83,12 @@
         nav {
             position: fixed;
             width: 100%;
-            padding: 20px 50px;
+            padding: 15px 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 100;
-            background: rgba(5, 5, 11, 0.7);
+            background: rgba(5, 5, 11, 0.85);
             backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
@@ -101,18 +99,17 @@
             background: linear-gradient(45deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: glowText 3s infinite alternate;
+            z-index: 101;
         }
 
-        @keyframes glowText {
-            from { text-shadow: 0 0 10px rgba(168, 85, 247, 0.2); }
-            to { text-shadow: 0 0 20px rgba(6, 182, 212, 0.6); }
+        .nav-links {
+            display: flex;
+            gap: 30px;
         }
 
         .nav-links a {
             color: var(--text-main);
             text-decoration: none;
-            margin-left: 30px;
             font-weight: 500;
             transition: 0.3s;
             position: relative;
@@ -133,6 +130,15 @@
             width: 100%;
         }
 
+        /* Mobile Menu Toggle */
+        .menu-btn {
+            display: none; /* Hidden on desktop */
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            z-index: 101;
+        }
+
         /* --- Hero Section --- */
         .hero {
             height: 100vh;
@@ -142,12 +148,13 @@
             align-items: center;
             text-align: center;
             padding: 0 20px;
+            margin-top: 0; /* Reset margin */
         }
 
         .hero h1 {
             font-size: 4rem;
             margin-bottom: 10px;
-            opacity: 0; /* For initial fade in */
+            opacity: 0;
             animation: fadeIn 1.5s ease forwards 0.5s;
         }
 
@@ -165,7 +172,6 @@
             animation: fadeIn 1.5s ease forwards 1s;
         }
 
-        /* Typing Effect Cursor */
         .typing-text {
             color: var(--primary);
             font-weight: bold;
@@ -181,9 +187,7 @@
             50% { border-color: var(--text-main); }
         }
 
-        @keyframes fadeIn {
-            to { opacity: 1; }
-        }
+        @keyframes fadeIn { to { opacity: 1; } }
 
         .btn {
             padding: 12px 35px;
@@ -191,7 +195,7 @@
             text-decoration: none;
             font-weight: 600;
             transition: 0.4s;
-            margin: 20px 10px;
+            margin: 15px 10px;
             display: inline-block;
             position: relative;
             overflow: hidden;
@@ -214,14 +218,8 @@
             z-index: -1;
         }
 
-        .btn-primary:hover::before {
-            width: 100%;
-        }
-
-        .btn-primary:hover {
-            box-shadow: 0 0 30px rgba(168, 85, 247, 0.6);
-            border-color: transparent;
-        }
+        .btn-primary:hover::before { width: 100%; }
+        .btn-primary:hover { border-color: transparent; }
 
         /* --- Sections --- */
         section {
@@ -243,7 +241,6 @@
             background: var(--secondary);
             margin: 15px auto 0;
             border-radius: 2px;
-            box-shadow: 0 0 10px var(--secondary);
         }
 
         /* --- About Me --- */
@@ -258,7 +255,7 @@
             display: inline-block;
             background: rgba(6, 182, 212, 0.05);
             color: var(--secondary);
-            padding: 8px 18px;
+            padding: 8px 15px;
             border-radius: 20px;
             margin: 5px 5px 5px 0;
             font-size: 0.9rem;
@@ -266,18 +263,12 @@
             transition: 0.3s;
         }
 
-        .skill-tags span:hover {
-            background: rgba(6, 182, 212, 0.2);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(6, 182, 212, 0.2);
-        }
-
-        /* --- Projects Grid (3D Tilt) --- */
+        /* --- Projects Grid --- */
         .project-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
-            perspective: 1000px; /* For 3D effect */
+            perspective: 1000px;
         }
 
         .project-card {
@@ -288,14 +279,12 @@
             justify-content: space-between;
             transform-style: preserve-3d;
         }
-
-        /* Removed standard hover transform, handled by JS now */
         
         .project-card h3 {
             font-size: 1.5rem;
             margin-bottom: 10px;
             color: var(--text-main);
-            transform: translateZ(20px); /* Pop out text */
+            transform: translateZ(20px);
         }
 
         .project-card .category {
@@ -322,13 +311,10 @@
             margin-right: 20px;
             transition: 0.3s;
             display: inline-block;
-            transform: translateZ(30px); /* Icons pop out most */
+            transform: translateZ(30px);
         }
 
-        .project-links a:hover {
-            color: var(--secondary);
-            transform: translateZ(30px) scale(1.2);
-        }
+        .project-links a:hover { color: var(--secondary); }
 
         /* --- NebulaByte Studios --- */
         .nebula-banner {
@@ -337,26 +323,18 @@
             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed; /* Parallax effect */
+            background-attachment: fixed;
             border-radius: 20px;
             border: 1px solid var(--primary);
-            box-shadow: 0 0 30px rgba(168, 85, 247, 0.2);
         }
 
         .nebula-banner h2 {
             font-size: 3.5rem;
             margin-bottom: 15px;
             text-shadow: 0 0 20px rgba(168, 85, 247, 1);
-            animation: pulse 3s infinite;
         }
 
-        @keyframes pulse {
-            0% { text-shadow: 0 0 20px rgba(168, 85, 247, 0.8); }
-            50% { text-shadow: 0 0 40px rgba(168, 85, 247, 1), 0 0 10px #fff; }
-            100% { text-shadow: 0 0 20px rgba(168, 85, 247, 0.8); }
-        }
-
-        /* --- Freelance & Stats --- */
+        /* --- Stats --- */
         .stats-container {
             display: flex;
             justify-content: space-around;
@@ -364,20 +342,11 @@
             text-align: center;
         }
 
-        .stat-box {
-            transition: 0.3s;
-        }
-
-        .stat-box:hover {
-            transform: scale(1.1);
-        }
-
         .stat-box h4 {
             font-size: 3rem;
             background: linear-gradient(to bottom, var(--secondary), var(--primary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 5px;
         }
 
         /* --- Contact --- */
@@ -392,31 +361,89 @@
         .contact-links a {
             color: var(--text-muted);
             transition: 0.3s;
-            position: relative;
         }
 
-        .contact-links a:hover {
-            color: var(--primary);
-            transform: translateY(-10px);
-            text-shadow: 0 10px 20px rgba(168, 85, 247, 0.5);
-        }
+        .contact-links a:hover { color: var(--primary); }
 
         footer {
             text-align: center;
-            padding: 50px;
+            padding: 40px 20px;
             border-top: 1px solid rgba(255,255,255,0.05);
             color: var(--text-muted);
             font-size: 0.9rem;
             margin-top: 50px;
         }
 
+        /* =========================================
+           MOBILE ADAPTATION (MEDIA QUERIES)
+           ========================================= */
+        @media (max-width: 992px) {
+            .hero h1 { font-size: 3rem; }
+            section { padding: 80px 5%; }
+            .nebula-banner { padding: 60px 30px; }
+            .nebula-banner h2 { font-size: 2.8rem; }
+        }
+
         @media (max-width: 768px) {
+            nav {
+                padding: 15px 20px;
+            }
+
+            .menu-btn {
+                display: block; /* Show hamburger menu */
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 60px; /* Height of nav bar */
+                left: 0;
+                width: 100%;
+                height: 0;
+                background: rgba(5,5,11, 0.98);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 30px;
+                overflow: hidden;
+                transition: height 0.4s ease;
+                border-bottom: 1px solid var(--glass-border);
+            }
+
+            .nav-links.active {
+                height: 100vh; /* Full screen menu */
+                padding-bottom: 100px; /* Space for scrolling */
+            }
+
+            .nav-links a {
+                font-size: 1.5rem; /* Bigger links for touch */
+            }
+
             .hero h1 { font-size: 2.5rem; }
+            .hero p.tagline { font-size: 1rem; padding: 0 10px; }
+            
             .about-container { grid-template-columns: 1fr; }
-            nav { padding: 20px; flex-direction: column; gap: 15px; background: rgba(5,5,11,0.95); }
-            .nav-links a { margin: 0 10px; }
-            .stats-container { flex-direction: column; gap: 30px; }
+            
+            /* Remove Parallax on mobile for performance */
+            .nebula-banner { background-attachment: scroll; }
             .nebula-banner h2 { font-size: 2rem; }
+            
+            .stats-container {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            section { padding: 60px 5%; }
+            .section-title { font-size: 2rem; margin-bottom: 40px; }
+
+            /* Fix grid for very small screens */
+            .project-grid {
+                grid-template-columns: 1fr; 
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 2.2rem; }
+            .btn { width: 100%; margin: 10px 0; }
         }
     </style>
 </head>
@@ -426,7 +453,10 @@
 
     <nav>
         <div class="logo">LUM1XI</div>
-        <div class="nav-links">
+        <div class="menu-btn" id="menu-btn">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="nav-links" id="nav-links">
             <a href="#home">Home</a>
             <a href="#about">About</a>
             <a href="#projects">Projects</a>
@@ -454,13 +484,11 @@
         <h2 class="section-title">About Me</h2>
         <div class="about-container">
             <div class="glass" style="padding: 30px;">
-                <h3>Oleksandr Monuk</h3>
-                <p style="color: var(--secondary); margin-bottom: 15px; font-weight: 500;">Software Engineering Student @ Chernivtsi Polytechnic</p>
+                <h3>Oleksandr Onyuk</h3>
+                <p style="color: var(--secondary); margin-bottom: 15px; font-weight: 500;">Software Engineering Student</p>
                 <p style="color: var(--text-muted); line-height: 1.7;">
                     I'm a passionate developer from Ukraine with a strong focus on automation, game development, and backend systems. 
                     Currently aiming to bring "Games from the Outer Space" to life through my indie studio.
-                    <br><br>
-                    I thrive on solving complex problems, whether it's optimizing a chunk system in Unity or architecting a Telegram bot with Aiogram.
                 </p>
             </div>
             <div>
@@ -494,7 +522,7 @@
                 <div>
                     <span class="category">Telegram Bot</span>
                     <h3>Folder Analyzer Bot</h3>
-                    <p>An automation tool using Aiogram + Telethon & Gemini API. Analyzes user folders and generates intelligent summaries.</p>
+                    <p>An automation tool using Aiogram + Telethon & Gemini API. Analyzes user folders.</p>
                 </div>
                 <div class="project-links">
                     <a href="https://github.com/Lum1xi/Telegram-Folder-Analyze"><i class="fab fa-github"></i></a>
@@ -506,7 +534,7 @@
                 <div>
                     <span class="category">Roblox Game</span>
                     <h3>Pet Simulator Project</h3>
-                    <p>A complex economy-based game featuring secret pets, distinct zones, and balanced progression mechanics.</p>
+                    <p>A complex economy-based game featuring secret pets, distinct zones, and balanced progression.</p>
                 </div>
                 <div class="project-links">
                     <a href="#"><i class="fas fa-gamepad"></i></a>
@@ -517,7 +545,7 @@
                 <div>
                     <span class="category">Tool</span>
                     <h3>Euro_gusto_bot</h3>
-                    <p>Full-featured Telegram shop bot with categories, cart management, and a referral system.</p>
+                    <p>Full-featured Telegram shop bot with categories, cart management, and referral system.</p>
                 </div>
                 <div class="project-links">
                     <a href="https://t.me/Euro_gusto_bot"><i class="fab fa-github"></i></a>
@@ -528,7 +556,7 @@
                 <div>
                     <span class="category">Minecraft Mod</span>
                     <h3>Nebula Life Steal</h3>
-                    <p>Fabric mod introducing custom hearts, attributes, and a flexible configuration system for SMP servers.</p>
+                    <p>Fabric mod introducing custom hearts, attributes, and a flexible configuration system.</p>
                 </div>
                 <div class="project-links">
                     <a href="#"><i class="fas fa-cube"></i></a>
@@ -540,16 +568,15 @@
     <section id="nebula" class="hidden">
         <div class="glass nebula-banner">
             <h2>NebulaByte Studios</h2>
-            <p style="font-size: 1.2rem; letter-spacing: 4px; margin-bottom: 20px; color: var(--secondary);">GAMES FROM THE OUTER SPACE</p>
+            <p style="font-size: 1rem; letter-spacing: 3px; margin-bottom: 20px; color: var(--secondary);">GAMES FROM THE OUTER SPACE</p>
             <p style="max-width: 700px; margin: 0 auto; color: #e2e8f0; font-weight: 300;">
-                An indie game studio creating immersive worlds with cosmic aesthetics. 
-                Focused on Voxel-world survival games and unique Steam experiences.
+                An indie game studio creating immersive worlds with cosmic aesthetics.
             </p>
         </div>
     </section>
 
     <section id="freelance" class="hidden">
-        <h2 class="section-title">Freelance Services</h2>
+        <h2 class="section-title">Freelance</h2>
         <div class="about-container">
             <div class="glass" style="padding: 30px;">
                 <h3>I can build for you:</h3>
@@ -557,21 +584,14 @@
                     <li><i class="fas fa-robot" style="color: var(--primary); width: 30px;"></i> Advanced Telegram Bots</li>
                     <li><i class="fas fa-code" style="color: var(--primary); width: 30px;"></i> Python Automation Scripts</li>
                     <li><i class="fas fa-gamepad" style="color: var(--primary); width: 30px;"></i> Roblox Scripting (Lua)</li>
-                    <li><i class="fas fa-cube" style="color: var(--primary); width: 30px;"></i> Minecraft Mods (Fabric)</li>
                 </ul>
             </div>
             <div class="stats-container">
-                <div class="stat-box floating" style="animation-delay: 0s;">
-                    <h4>4.9</h4>
-                    <p>Rating on FunPay</p>
+                <div class="stat-box">
+                    <h4>4.9</h4> <p>FunPay Rating</p>
                 </div>
-                <div class="stat-box floating" style="animation-delay: 0.5s;">
-                    <h4>95+</h4>
-                    <p>Reviews</p>
-                </div>
-                <div class="stat-box floating" style="animation-delay: 1s;">
-                    <h4>3+</h4>
-                    <p>Years Experience</p>
+                <div class="stat-box">
+                    <h4>95+</h4> <p>Reviews</p>
                 </div>
             </div>
         </div>
@@ -579,19 +599,18 @@
 
     <section id="contact" class="hidden">
         <h2 class="section-title">Get In Touch</h2>
-        <p style="text-align: center; color: var(--text-muted);">Open for commissions and collaborations.</p>
         <div class="contact-links">
-            <a href="https://t.me/Hub_H" target="_blank" title="Telegram"><i class="fab fa-telegram"></i></a>
-            <a href="https://github.com/Lum1xi" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://t.me/Hub_H" target="_blank"><i class="fab fa-telegram"></i></a>
+            <a href="https://github.com/Lum1xi" target="_blank"><i class="fab fa-github"></i></a>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2025 Lum1xi & NebulaByte Studios. All rights reserved.</p>
+        <p>&copy; 2025 Lum1xi & NebulaByte Studios.</p>
     </footer>
 
     <script>
-        // --- 1. Canvas Starfield (Background) ---
+        // --- 1. Canvas Starfield ---
         const canvas = document.getElementById('canvas-container');
         const ctx = canvas.getContext('2d');
         let width, height;
@@ -605,9 +624,7 @@
         }
 
         class Star {
-            constructor() {
-                this.reset();
-            }
+            constructor() { this.reset(); }
             reset() {
                 this.x = Math.random() * width;
                 this.y = Math.random() * height;
@@ -619,8 +636,6 @@
             update() {
                 this.y -= this.speed;
                 if (this.y < 0) this.reset();
-                
-                // Twinkle effect
                 this.opacity += this.fade;
                 if(this.opacity > 1 || this.opacity < 0) this.fade = -this.fade;
             }
@@ -634,34 +649,27 @@
 
         function initStars() {
             stars = [];
-            for (let i = 0; i < 200; i++) stars.push(new Star());
+            // Reduce star count on mobile for performance
+            const count = window.innerWidth < 768 ? 80 : 200;
+            for (let i = 0; i < count; i++) stars.push(new Star());
         }
 
         function animateStars() {
             ctx.clearRect(0, 0, width, height);
-            stars.forEach(star => {
-                star.update();
-                star.draw();
-            });
+            stars.forEach(star => { star.update(); star.draw(); });
             requestAnimationFrame(animateStars);
         }
 
         window.addEventListener('resize', () => { resize(); initStars(); });
-        resize();
-        initStars();
-        animateStars();
+        resize(); initStars(); animateStars();
 
-
-        // --- 2. Typing Effect (Hero Section) ---
+        // --- 2. Typing Effect ---
         const typingText = document.querySelector('.typing-text');
         const words = ["Python Automation", "Telegram Bots", "Roblox Game Dev", "Minecraft Modding"];
-        let wordIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
+        let wordIndex = 0; let charIndex = 0; let isDeleting = false;
 
         function type() {
             const currentWord = words[wordIndex];
-            
             if (isDeleting) {
                 typingText.textContent = currentWord.substring(0, charIndex - 1);
                 charIndex--;
@@ -669,66 +677,82 @@
                 typingText.textContent = currentWord.substring(0, charIndex + 1);
                 charIndex++;
             }
-
             let typeSpeed = isDeleting ? 50 : 100;
-
             if (!isDeleting && charIndex === currentWord.length) {
-                typeSpeed = 2000; // Pause at end of word
-                isDeleting = true;
+                typeSpeed = 2000; isDeleting = true;
             } else if (isDeleting && charIndex === 0) {
                 isDeleting = false;
                 wordIndex = (wordIndex + 1) % words.length;
-                typeSpeed = 500; // Pause before new word
+                typeSpeed = 500;
             }
-
             setTimeout(type, typeSpeed);
         }
         document.addEventListener('DOMContentLoaded', type);
 
-
-        // --- 3. Scroll Reveal Animation ---
-        const observerOptions = { threshold: 0.1 };
+        // --- 3. Scroll Reveal ---
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('show');
-                }
+                if (entry.isIntersecting) entry.target.classList.add('show');
             });
-        }, observerOptions);
-
+        }, { threshold: 0.1 });
         document.querySelectorAll('.hidden').forEach((el) => observer.observe(el));
 
-
-        // --- 4. 3D Tilt Effect for Cards ---
+        // --- 4. 3D Tilt (Desktop Only) & Mobile Menu ---
         const cards = document.querySelectorAll('.tilt-effect');
+        const isMobile = window.innerWidth <= 768;
 
-        cards.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                // Calculate rotation (max 15deg)
-                const xRotation = -((y - rect.height/2) / rect.height * 15);
-                const yRotation = (x - rect.width/2) / rect.width * 15;
-                
-                card.style.transform = `perspective(1000px) rotateX(${xRotation}deg) rotateY(${yRotation}deg) scale(1.02)`;
-                card.style.borderColor = 'var(--primary)';
+        if (!isMobile) {
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const xRotation = -((y - rect.height/2) / rect.height * 15);
+                    const yRotation = (x - rect.width/2) / rect.width * 15;
+                    card.style.transform = `perspective(1000px) rotateX(${xRotation}deg) rotateY(${yRotation}deg) scale(1.02)`;
+                    card.style.borderColor = 'var(--primary)';
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+                    card.style.borderColor = 'var(--glass-border)';
+                });
             });
+        }
 
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
-                card.style.borderColor = 'var(--glass-border)';
+        // --- Mobile Menu Logic ---
+        const menuBtn = document.getElementById('menu-btn');
+        const navLinks = document.getElementById('nav-links');
+        const navItems = document.querySelectorAll('.nav-links a');
+
+        menuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            // Change icon based on state
+            const icon = menuBtn.querySelector('i');
+            if(navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Close menu when link is clicked
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                if(window.innerWidth <= 768) {
+                    navLinks.classList.remove('active');
+                    menuBtn.querySelector('i').classList.remove('fa-times');
+                    menuBtn.querySelector('i').classList.add('fa-bars');
+                }
             });
         });
 
-        // Smooth Scroll for Anchor Links
+        // Smooth Scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
             });
         });
     </script>
