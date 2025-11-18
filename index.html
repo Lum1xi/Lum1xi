@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lum1xi | NebulaByte Studios</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #05050b;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --primary: #a855f7; /* Purple */
+            --secondary: #06b6d4; /* Cyan */
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .brand {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* --- Space Background Animation --- */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+        }
+
+        /* --- Utility: Glassmorphism & Animations --- */
+        .glass {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: var(--glass-border);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+            transition: transform 0.1s ease, box-shadow 0.3s ease;
+        }
+
+        /* Scroll Animation Classes */
+        .hidden {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease;
+        }
+
+        .show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Floating Animation for Icons */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .floating {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            width: 100%;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(5, 5, 11, 0.7);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glowText 3s infinite alternate;
+        }
+
+        @keyframes glowText {
+            from { text-shadow: 0 0 10px rgba(168, 85, 247, 0.2); }
+            to { text-shadow: 0 0 20px rgba(6, 182, 212, 0.6); }
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 500;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--secondary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            opacity: 0; /* For initial fade in */
+            animation: fadeIn 1.5s ease forwards 0.5s;
+        }
+
+        .hero .alias {
+            color: var(--secondary);
+            text-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+        }
+
+        .hero p.tagline {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            max-width: 600px;
+            opacity: 0;
+            animation: fadeIn 1.5s ease forwards 1s;
+        }
+
+        /* Typing Effect Cursor */
+        .typing-text {
+            color: var(--primary);
+            font-weight: bold;
+            border-right: 2px solid var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            padding-right: 5px;
+            animation: blinkCursor 0.75s step-end infinite;
+        }
+
+        @keyframes blinkCursor {
+            from, to { border-color: transparent; }
+            50% { border-color: var(--text-main); }
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .btn {
+            padding: 12px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.4s;
+            margin: 20px 10px;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-primary {
+            background: transparent;
+            color: white;
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 0%; height: 100%;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            transition: width 0.4s;
+            z-index: -1;
+        }
+
+        .btn-primary:hover::before {
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.6);
+            border-color: transparent;
+        }
+
+        /* --- Sections --- */
+        section {
+            padding: 100px 10%;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 15px auto 0;
+            border-radius: 2px;
+            box-shadow: 0 0 10px var(--secondary);
+        }
+
+        /* --- About Me --- */
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        .skill-tags span {
+            display: inline-block;
+            background: rgba(6, 182, 212, 0.05);
+            color: var(--secondary);
+            padding: 8px 18px;
+            border-radius: 20px;
+            margin: 5px 5px 5px 0;
+            font-size: 0.9rem;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            transition: 0.3s;
+        }
+
+        .skill-tags span:hover {
+            background: rgba(6, 182, 212, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(6, 182, 212, 0.2);
+        }
+
+        /* --- Projects Grid (3D Tilt) --- */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            perspective: 1000px; /* For 3D effect */
+        }
+
+        .project-card {
+            padding: 30px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transform-style: preserve-3d;
+        }
+
+        /* Removed standard hover transform, handled by JS now */
+        
+        .project-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--text-main);
+            transform: translateZ(20px); /* Pop out text */
+        }
+
+        .project-card .category {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: block;
+            transform: translateZ(20px);
+        }
+
+        .project-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            transform: translateZ(10px);
+        }
+
+        .project-links a {
+            color: var(--text-main);
+            font-size: 1.4rem;
+            margin-right: 20px;
+            transition: 0.3s;
+            display: inline-block;
+            transform: translateZ(30px); /* Icons pop out most */
+        }
+
+        .project-links a:hover {
+            color: var(--secondary);
+            transform: translateZ(30px) scale(1.2);
+        }
+
+        /* --- NebulaByte Studios --- */
+        .nebula-banner {
+            text-align: center;
+            padding: 80px;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Parallax effect */
+            border-radius: 20px;
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.2);
+        }
+
+        .nebula-banner h2 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(168, 85, 247, 1);
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0% { text-shadow: 0 0 20px rgba(168, 85, 247, 0.8); }
+            50% { text-shadow: 0 0 40px rgba(168, 85, 247, 1), 0 0 10px #fff; }
+            100% { text-shadow: 0 0 20px rgba(168, 85, 247, 0.8); }
+        }
+
+        /* --- Freelance & Stats --- */
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .stat-box {
+            transition: 0.3s;
+        }
+
+        .stat-box:hover {
+            transform: scale(1.1);
+        }
+
+        .stat-box h4 {
+            font-size: 3rem;
+            background: linear-gradient(to bottom, var(--secondary), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+        }
+
+        /* --- Contact --- */
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            font-size: 2.5rem;
+            margin-top: 40px;
+        }
+
+        .contact-links a {
+            color: var(--text-muted);
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .contact-links a:hover {
+            color: var(--primary);
+            transform: translateY(-10px);
+            text-shadow: 0 10px 20px rgba(168, 85, 247, 0.5);
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .about-container { grid-template-columns: 1fr; }
+            nav { padding: 20px; flex-direction: column; gap: 15px; background: rgba(5,5,11,0.95); }
+            .nav-links a { margin: 0 10px; }
+            .stats-container { flex-direction: column; gap: 30px; }
+            .nebula-banner h2 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="canvas-container"></canvas>
+
+    <nav>
+        <div class="logo">LUM1XI</div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#nebula">NebulaByte</a>
+            <a href="#freelance">Freelance</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <h1>Hi, I'm <span class="alias">Lum1xi</span></h1>
+        <p class="tagline">Developer, Creator, and Founder of NebulaByte Studios.</p>
+        
+        <p style="font-size: 1.2rem; margin-top: 10px; min-height: 30px;">
+            I specialize in: <span class="typing-text"></span>
+        </p>
+        
+        <div style="margin-top: 30px; opacity: 0; animation: fadeIn 1.5s ease forwards 1.5s;">
+            <a href="#projects" class="btn btn-primary">View Projects</a>
+            <a href="#contact" class="btn btn-primary" style="border-color: var(--secondary);">Contact Me</a>
+        </div>
+    </section>
+
+    <section id="about" class="hidden">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-container">
+            <div class="glass" style="padding: 30px;">
+                <h3>Oleksandr Onyuk</h3>
+                <p style="color: var(--secondary); margin-bottom: 15px; font-weight: 500;">Software Engineering Student @ Chernivtsi Polytechnic</p>
+                <p style="color: var(--text-muted); line-height: 1.7;">
+                    I'm a passionate developer from Ukraine with a strong focus on automation, game development, and backend systems. 
+                    Currently aiming to bring "Games from the Outer Space" to life through my indie studio.
+                    <br><br>
+                    I thrive on solving complex problems, whether it's optimizing a chunk system in Unity or architecting a Telegram bot with Aiogram.
+                </p>
+            </div>
+            <div>
+                <div class="floating"> <h3>Tech Stack</h3>
+                    <div class="skill-tags">
+                        <span>Python</span>
+                        <span>Lua</span>
+                        <span>Aiogram</span>
+                        <span>Telethon</span>
+                        <span>Unity</span>
+                        <span>Fabric API</span>
+                        <span>C++</span>
+                        <span>Java</span>
+                    </div>
+                </div>
+                <div class="floating" style="animation-delay: 1s; margin-top: 30px;">
+                    <h3>Languages</h3>
+                    <div class="skill-tags">
+                        <span style="border-color: var(--primary); color: var(--primary);">Ukrainian (Native)</span>
+                        <span style="border-color: var(--primary); color: var(--primary);">English (Learning)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="hidden">
+        <h2 class="section-title">Projects</h2>
+        <div class="project-grid">
+            <div class="project-card glass tilt-effect">
+                <div>
+                    <span class="category">Telegram Bot</span>
+                    <h3>Folder Analyzer Bot</h3>
+                    <p>An automation tool using Aiogram + Telethon & Gemini API. Analyzes user folders and generates intelligent summaries.</p>
+                </div>
+                <div class="project-links">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-telegram"></i></a>
+                </div>
+            </div>
+
+            <div class="project-card glass tilt-effect">
+                <div>
+                    <span class="category">Roblox Game</span>
+                    <h3>Pet Simulator Project</h3>
+                    <p>A complex economy-based game featuring secret pets, distinct zones, and balanced progression mechanics.</p>
+                </div>
+                <div class="project-links">
+                    <a href="#"><i class="fas fa-gamepad"></i></a>
+                </div>
+            </div>
+
+             <div class="project-card glass tilt-effect">
+                <div>
+                    <span class="category">Tool</span>
+                    <h3>Euro_gusto_bot</h3>
+                    <p>Full-featured Telegram shop bot with categories, cart management, and a referral system.</p>
+                </div>
+                <div class="project-links">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+
+            <div class="project-card glass tilt-effect">
+                <div>
+                    <span class="category">Minecraft Mod</span>
+                    <h3>Nebula Life Steal</h3>
+                    <p>Fabric mod introducing custom hearts, attributes, and a flexible configuration system for SMP servers.</p>
+                </div>
+                <div class="project-links">
+                    <a href="#"><i class="fas fa-cube"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="nebula" class="hidden">
+        <div class="glass nebula-banner">
+            <h2>NebulaByte Studios</h2>
+            <p style="font-size: 1.2rem; letter-spacing: 4px; margin-bottom: 20px; color: var(--secondary);">GAMES FROM THE OUTER SPACE</p>
+            <p style="max-width: 700px; margin: 0 auto; color: #e2e8f0; font-weight: 300;">
+                An indie game studio creating immersive worlds with cosmic aesthetics. 
+                Focused on Voxel-world survival games and unique Steam experiences.
+            </p>
+        </div>
+    </section>
+
+    <section id="freelance" class="hidden">
+        <h2 class="section-title">Freelance Services</h2>
+        <div class="about-container">
+            <div class="glass" style="padding: 30px;">
+                <h3>I can build for you:</h3>
+                <ul style="list-style: none; margin-top: 15px; color: var(--text-muted); line-height: 2.2;">
+                    <li><i class="fas fa-robot" style="color: var(--primary); width: 30px;"></i> Advanced Telegram Bots</li>
+                    <li><i class="fas fa-code" style="color: var(--primary); width: 30px;"></i> Python Automation Scripts</li>
+                    <li><i class="fas fa-gamepad" style="color: var(--primary); width: 30px;"></i> Roblox Scripting (Lua)</li>
+                    <li><i class="fas fa-cube" style="color: var(--primary); width: 30px;"></i> Minecraft Mods (Fabric)</li>
+                </ul>
+            </div>
+            <div class="stats-container">
+                <div class="stat-box floating" style="animation-delay: 0s;">
+                    <h4>4.9</h4>
+                    <p>Rating on FunPay</p>
+                </div>
+                <div class="stat-box floating" style="animation-delay: 0.5s;">
+                    <h4>95+</h4>
+                    <p>Reviews</p>
+                </div>
+                <div class="stat-box floating" style="animation-delay: 1s;">
+                    <h4>3+</h4>
+                    <p>Years Experience</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="hidden">
+        <h2 class="section-title">Get In Touch</h2>
+        <p style="text-align: center; color: var(--text-muted);">Open for commissions and collaborations.</p>
+        <div class="contact-links">
+            <a href="https://t.me/Hub_H" target="_blank" title="Telegram"><i class="fab fa-telegram"></i></a>
+            <a href="#" title="Discord: Похибка Дарвіна"><i class="fab fa-discord"></i></a>
+            <a href="https://github.com/Lum1xi" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Lum1xi & NebulaByte Studios. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // --- 1. Canvas Starfield (Background) ---
+        const canvas = document.getElementById('canvas-container');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let stars = [];
+
+        function resize() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+        }
+
+        class Star {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.size = Math.random() * 2;
+                this.speed = Math.random() * 0.3 + 0.1;
+                this.opacity = Math.random();
+                this.fade = Math.random() * 0.02 + 0.005;
+            }
+            update() {
+                this.y -= this.speed;
+                if (this.y < 0) this.reset();
+                
+                // Twinkle effect
+                this.opacity += this.fade;
+                if(this.opacity > 1 || this.opacity < 0) this.fade = -this.fade;
+            }
+            draw() {
+                ctx.fillStyle = `rgba(255, 255, 255, ${Math.abs(this.opacity)})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initStars() {
+            stars = [];
+            for (let i = 0; i < 200; i++) stars.push(new Star());
+        }
+
+        function animateStars() {
+            ctx.clearRect(0, 0, width, height);
+            stars.forEach(star => {
+                star.update();
+                star.draw();
+            });
+            requestAnimationFrame(animateStars);
+        }
+
+        window.addEventListener('resize', () => { resize(); initStars(); });
+        resize();
+        initStars();
+        animateStars();
+
+
+        // --- 2. Typing Effect (Hero Section) ---
+        const typingText = document.querySelector('.typing-text');
+        const words = ["Python Automation", "Telegram Bots", "Roblox Game Dev", "Minecraft Modding"];
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function type() {
+            const currentWord = words[wordIndex];
+            
+            if (isDeleting) {
+                typingText.textContent = currentWord.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typingText.textContent = currentWord.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === currentWord.length) {
+                typeSpeed = 2000; // Pause at end of word
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                wordIndex = (wordIndex + 1) % words.length;
+                typeSpeed = 500; // Pause before new word
+            }
+
+            setTimeout(type, typeSpeed);
+        }
+        document.addEventListener('DOMContentLoaded', type);
+
+
+        // --- 3. Scroll Reveal Animation ---
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.hidden').forEach((el) => observer.observe(el));
+
+
+        // --- 4. 3D Tilt Effect for Cards ---
+        const cards = document.querySelectorAll('.tilt-effect');
+
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                // Calculate rotation (max 15deg)
+                const xRotation = -((y - rect.height/2) / rect.height * 15);
+                const yRotation = (x - rect.width/2) / rect.width * 15;
+                
+                card.style.transform = `perspective(1000px) rotateX(${xRotation}deg) rotateY(${yRotation}deg) scale(1.02)`;
+                card.style.borderColor = 'var(--primary)';
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+                card.style.borderColor = 'var(--glass-border)';
+            });
+        });
+
+        // Smooth Scroll for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
