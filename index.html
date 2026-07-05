@@ -3,20 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lum1xi | NebulaByte Studios</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Lum1xi | Bio</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=VT323&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://kit.fontawesome.com/330df0be73.js" crossorigin="anonymous"></script>
+
     <style>
         :root {
-            --bg-color: #05050b;
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --primary: #a855f7; /* Purple */
-            --secondary: #06b6d4; /* Cyan */
-            --text-main: #ffffff;
-            --text-muted: #94a3b8;
-            --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+            --glass-bg: rgba(30, 41, 59, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #f8fafc;
+            --text-muted: #cbd5e1;
+            --accent: #38bdf8;
         }
 
         * {
@@ -26,735 +25,311 @@
         }
 
         body {
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--bg-color);
+            font-family: 'Inter', sans-serif;
             color: var(--text-main);
-            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url('https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?q=80&w=3293&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            overflow: hidden;
         }
 
-        h1, h2, h3, .brand {
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        /* --- Space Background Animation --- */
-        #canvas-container {
-            position: fixed;
+        .overlay {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
-            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
-        }
-
-        /* --- Utility: Glassmorphism & Animations --- */
-        .glass {
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: var(--glass-border);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-            border-radius: 16px;
-            transition: transform 0.1s ease, box-shadow 0.3s ease;
-        }
-
-        .hidden {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 1s ease;
-        }
-
-        .show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-
-        .floating {
-            animation: float 4s ease-in-out infinite;
-        }
-
-        /* --- Navigation --- */
-        nav {
-            position: fixed;
-            width: 100%;
-            padding: 15px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-            background: rgba(5, 5, 11, 0.85);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            z-index: 101;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-        }
-
-        .nav-links a {
-            color: var(--text-main);
-            text-decoration: none;
-            font-weight: 500;
-            transition: 0.3s;
-            position: relative;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background-color: var(--secondary);
-            transition: width 0.3s;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* Mobile Menu Toggle */
-        .menu-btn {
-            display: none; /* Hidden on desktop */
-            color: white;
-            font-size: 1.8rem;
-            cursor: pointer;
-            z-index: 101;
-        }
-
-        /* --- Hero Section --- */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 20px;
-            margin-top: 0; /* Reset margin */
-        }
-
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 10px;
-            opacity: 0;
-            animation: fadeIn 1.5s ease forwards 0.5s;
-        }
-
-        .hero .alias {
-            color: var(--secondary);
-            text-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
-        }
-
-        .hero p.tagline {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            margin-bottom: 10px;
-            max-width: 600px;
-            opacity: 0;
-            animation: fadeIn 1.5s ease forwards 1s;
-        }
-
-        .typing-text {
-            color: var(--primary);
-            font-weight: bold;
-            border-right: 2px solid var(--text-main);
-            white-space: nowrap;
-            overflow: hidden;
-            padding-right: 5px;
-            animation: blinkCursor 0.75s step-end infinite;
-        }
-
-        @keyframes blinkCursor {
-            from, to { border-color: transparent; }
-            50% { border-color: var(--text-main); }
-        }
-
-        @keyframes fadeIn { to { opacity: 1; } }
-
-        .btn {
-            padding: 12px 35px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: 0.4s;
-            margin: 15px 10px;
-            display: inline-block;
-            position: relative;
-            overflow: hidden;
+            background: rgba(0, 0, 0, 0.4);
             z-index: 1;
         }
 
-        .btn-primary {
-            background: transparent;
+
+
+        .control-icon {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .control-icon:hover {
             color: white;
-            border: 1px solid var(--primary);
-            box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
         }
 
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 0%; height: 100%;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            transition: width 0.4s;
-            z-index: -1;
+        .main-container {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 520px;
+    padding: 20px;
+    
+    isolation: isolate; 
+}
+
+        .pixel-title {
+            font-family: 'VT323', monospace;
+            font-size: 4.5rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 5px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
 
-        .btn-primary:hover::before { width: 100%; }
-        .btn-primary:hover { border-color: transparent; }
-
-        /* --- Sections --- */
-        section {
-            padding: 100px 10%;
+        .subtitle {
+            font-size: 0.95rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            color: #d1d5db;
         }
 
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 60px;
-            text-align: center;
+        .location {
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 30px;
+            color: #e5e7eb;
+        }
+
+        .glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    width: 100%;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    
+    position: relative;
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    width: 100%;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    z-index: 1;
+}
+
+        .glass-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: -1;
+}
+        .profile-section {
+            padding: 20px 25px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .avatar-container {
             position: relative;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            overflow: hidden;
         }
 
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 4px;
-            background: var(--secondary);
-            margin: 15px auto 0;
-            border-radius: 2px;
-        }
-
-        /* --- About Me --- */
-        .about-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: start;
-        }
-
-        .skill-tags span {
-            display: inline-block;
-            background: rgba(6, 182, 212, 0.05);
-            color: var(--secondary);
-            padding: 8px 15px;
-            border-radius: 20px;
-            margin: 5px 5px 5px 0;
-            font-size: 0.9rem;
-            border: 1px solid rgba(6, 182, 212, 0.3);
-            transition: 0.3s;
-        }
-
-        /* --- Projects Grid --- */
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            perspective: 1000px;
-        }
-
-        .project-card {
-            padding: 30px;
+        .avatar {
+            width: 100%;
             height: 100%;
+            object-fit: cover;
+        }
+
+        .status-dot {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            width: 12px;
+            height: 12px;
+            background-color: #9ca3af; 
+            border-radius: 50%;
+            border: 2px solid #1e293b;
+        }
+
+        .profile-info {
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            transform-style: preserve-3d;
-        }
-        
-        .project-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            color: var(--text-main);
-            transform: translateZ(20px);
         }
 
-        .project-card .category {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--primary);
-            margin-bottom: 15px;
-            display: block;
-            transform: translateZ(20px);
-        }
-
-        .project-card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 25px;
-            transform: translateZ(10px);
-        }
-
-        .project-links a {
-            color: var(--text-main);
-            font-size: 1.4rem;
-            margin-right: 20px;
-            transition: 0.3s;
-            display: inline-block;
-            transform: translateZ(30px);
-        }
-
-        .project-links a:hover { color: var(--secondary); }
-
-        /* --- NebulaByte Studios --- */
-        .nebula-banner {
-            text-align: center;
-            padding: 80px;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            border-radius: 20px;
-            border: 1px solid var(--primary);
-        }
-
-        .nebula-banner h2 {
-            font-size: 3.5rem;
-            margin-bottom: 15px;
-            text-shadow: 0 0 20px rgba(168, 85, 247, 1);
-        }
-
-        /* --- Stats --- */
-        .stats-container {
+        .profile-name {
+            font-weight: 600;
+            font-size: 1.3rem;
             display: flex;
-            justify-content: space-around;
-            margin-top: 50px;
-            text-align: center;
+            align-items: center;
+            gap: 8px;
         }
 
-        .stat-box h4 {
-            font-size: 3rem;
-            background: linear-gradient(to bottom, var(--secondary), var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .badge {
+            background: rgba(16, 185, 129, 0.2);
+            color: #34d399;
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            font-weight: bold;
         }
 
-        /* --- Contact --- */
-        .contact-links {
+        .badge-blue {
+            background: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .profile-status {
+            font-size: 0.95rem;
+            color: #9ca3af;
+        }
+
+        .bio-section {
+            padding: 20px 25px;
+        }
+
+        .bio-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .bio-content {
+            margin-top: 15px;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #d1d5db;
+        }
+
+        .skill-highlight {
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .social-icons {
             display: flex;
             justify-content: center;
-            gap: 40px;
-            font-size: 2.5rem;
-            margin-top: 40px;
+            gap: 20px;
+            margin-top: 15px;
+            padding: 10px;
+    transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
         }
 
-        .contact-links a {
-            color: var(--text-muted);
-            transition: 0.3s;
+        .social-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            font-size: 1.6rem;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .contact-links a:hover { color: var(--primary); }
-
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-top: 50px;
+        .social-icon:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
         }
 
-        /* =========================================
-           MOBILE ADAPTATION (MEDIA QUERIES)
-           ========================================= */
-        @media (max-width: 992px) {
-            .hero h1 { font-size: 3rem; }
-            section { padding: 80px 5%; }
-            .nebula-banner { padding: 60px 30px; }
-            .nebula-banner h2 { font-size: 2.8rem; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        @media (max-width: 768px) {
-            nav {
-                padding: 15px 20px;
-            }
-
-            .menu-btn {
-                display: block; /* Show hamburger menu */
-            }
-
-            .nav-links {
-                position: absolute;
-                top: 60px; /* Height of nav bar */
-                left: 0;
-                width: 100%;
-                height: 0;
-                background: rgba(5,5,11, 0.98);
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                gap: 30px;
-                overflow: hidden;
-                transition: height 0.4s ease;
-                border-bottom: 1px solid var(--glass-border);
-            }
-
-            .nav-links.active {
-                height: 100vh; /* Full screen menu */
-                padding-bottom: 100px; /* Space for scrolling */
-            }
-
-            .nav-links a {
-                font-size: 1.5rem; /* Bigger links for touch */
-            }
-
-            .hero h1 { font-size: 2.5rem; }
-            .hero p.tagline { font-size: 1rem; padding: 0 10px; }
-            
-            .about-container { grid-template-columns: 1fr; }
-            
-            /* Remove Parallax on mobile for performance */
-            .nebula-banner { background-attachment: scroll; }
-            .nebula-banner h2 { font-size: 2rem; }
-            
-            .stats-container {
-                flex-direction: column;
-                gap: 40px;
-            }
-
-            section { padding: 60px 5%; }
-            .section-title { font-size: 2rem; margin-bottom: 40px; }
-
-            /* Fix grid for very small screens */
-            .project-grid {
-                grid-template-columns: 1fr; 
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 { font-size: 2.2rem; }
-            .btn { width: 100%; margin: 10px 0; }
+        .animate-up {
+            animation: fadeIn 0.8s ease-out forwards;
         }
     </style>
 </head>
 <body>
 
-    <canvas id="canvas-container"></canvas>
+    <div class="overlay"></div>
 
-    <nav>
-        <div class="logo">LUM1XI</div>
-        <div class="menu-btn" id="menu-btn">
-            <i class="fas fa-bars"></i>
-        </div>
-        <div class="nav-links" id="nav-links">
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#projects">Projects</a>
-            <a href="#nebula">NebulaByte</a>
-            <a href="#freelance">Freelance</a>
-            <a href="#contact">Contact</a>
-        </div>
-    </nav>
 
-    <section id="home" class="hero">
-        <h1>Hi, I'm <span class="alias">Lum1xi</span></h1>
-        <p class="tagline">Developer, Creator, and Founder of NebulaByte Studios.</p>
-        
-        <p style="font-size: 1.2rem; margin-top: 10px; min-height: 30px;">
-            I specialize in: <span class="typing-text"></span>
-        </p>
-        
-        <div style="margin-top: 30px; opacity: 0; animation: fadeIn 1.5s ease forwards 1.5s;">
-            <a href="#projects" class="btn btn-primary">View Projects</a>
-            <a href="#contact" class="btn btn-primary" style="border-color: var(--secondary);">Contact Me</a>
-        </div>
-    </section>
+    <div class="main-container animate-up">
+        <h1 class="pixel-title">LUM1XI</h1>
+        <div class="subtitle">DEVELOPER</div>
 
-    <section id="about" class="hidden">
-        <h2 class="section-title">About Me</h2>
-        <div class="about-container">
-            <div class="glass" style="padding: 30px;">
-                <h3>Oleksandr Onyuk</h3>
-                <p style="color: var(--secondary); margin-bottom: 15px; font-weight: 500;">Software Engineering Student</p>
-                <p style="color: var(--text-muted); line-height: 1.7;">
-                    I'm a passionate developer from Ukraine with a strong focus on automation, game development, and backend systems. 
-                    Currently aiming to bring "Games from the Outer Space" to life through my indie studio.
-                </p>
+
+        <div class="glass-panel profile-section">
+            <div class="avatar-container">
+                <img src="1.jpg" alt="Lum1xi" class="avatar">
             </div>
-            <div>
-                <div class="floating"> <h3>Tech Stack</h3>
-                    <div class="skill-tags">
-                        <span>Python</span>
-                        <span>Lua</span>
-                        <span>Aiogram</span>
-                        <span>Telethon</span>
-                        <span>Unity</span>
-                        <span>Fabric API</span>
-                        <span>C++</span>
-                        <span>Java</span>
-                    </div>
+            <div class="profile-info">
+                <div class="profile-name">
+                    Lum1xi 
+                    <span class="badge">CODE</span>
                 </div>
-                <div class="floating" style="animation-delay: 1s; margin-top: 30px;">
-                    <h3>Languages</h3>
-                    <div class="skill-tags">
-                        <span style="border-color: var(--primary); color: var(--primary);">Ukrainian (Native)</span>
-                        <span style="border-color: var(--primary); color: var(--primary);">English (Learning)</span>
-                    </div>
-                </div>
+                <div class="profile-status">Tm90aGluZwo=</div>
             </div>
         </div>
-    </section>
 
-    <section id="projects" class="hidden">
-        <h2 class="section-title">Projects</h2>
-        <div class="project-grid">
-            <div class="project-card glass tilt-effect">
-                <div>
-                    <span class="category">Telegram Bot</span>
-                    <h3>Folder Analyzer Bot</h3>
-                    <p>An automation tool using Aiogram + Telethon & Gemini API. Analyzes user folders.</p>
-                </div>
-                <div class="project-links">
-                    <a href="https://github.com/Lum1xi/Telegram-Folder-Analyze"><i class="fab fa-github"></i></a>
-                    <a href="https://t.me/fillcode"><i class="fab fa-telegram"></i></a>
-                </div>
+        <div class="glass-panel bio-section">
+            <div class="bio-header" onclick="toggleBio()">
+                <span>BIO</span>
+                <i class="ph ph-caret-down" id="bio-caret" style="transition: transform 0.3s;"></i>
             </div>
-
-            <div class="project-card glass tilt-effect">
-                <div>
-                    <span class="category">Roblox Game</span>
-                    <h3>Pet Simulator Project</h3>
-                    <p>A complex economy-based game featuring secret pets, distinct zones, and balanced progression.</p>
-                </div>
-                <div class="project-links">
-                    <a href="#"><i class="fas fa-gamepad"></i></a>
-                </div>
-            </div>
-
-             <div class="project-card glass tilt-effect">
-                <div>
-                    <span class="category">Tool</span>
-                    <h3>Euro_gusto_bot</h3>
-                    <p>Full-featured Telegram shop bot with categories, cart management, and referral system.</p>
-                </div>
-                <div class="project-links">
-                    <a href="https://t.me/Euro_gusto_bot"><i class="fab fa-github"></i></a>
-                </div>
-            </div>
-
-            <div class="project-card glass tilt-effect">
-                <div>
-                    <span class="category">Minecraft Mod</span>
-                    <h3>Nebula Life Steal</h3>
-                    <p>Fabric mod introducing custom hearts, attributes, and a flexible configuration system.</p>
-                </div>
-                <div class="project-links">
-                    <a href="#"><i class="fas fa-cube"></i></a>
-                </div>
+            <div class="bio-content" id="bio-text" style="display: block;">
+                Passionate about programming, game development, and creating Telegram bots. <br><br>
+                Skilled in <span class="skill-highlight">Python, Lua, C#, and C++</span>. <br><br>
+                🎭 Member of <strong>NebulaByte Studios</strong><br><br>
+                🚀 My main goal is to release my own game on Steam.
             </div>
         </div>
-    </section>
 
-    <section id="nebula" class="hidden">
-        <div class="glass nebula-banner">
-            <h2>NebulaByte Studios</h2>
-            <p style="font-size: 1rem; letter-spacing: 3px; margin-bottom: 20px; color: var(--secondary);">GAMES FROM THE OUTER SPACE</p>
-            <p style="max-width: 700px; margin: 0 auto; color: #e2e8f0; font-weight: 300;">
-                An indie game studio creating immersive worlds with cosmic aesthetics.
-            </p>
+
+        <div class="social-icons">
+            <a href="https://t.me/Hub_H" target="_blank" class="social-icon" title="Telegram">
+                <i class="fa-brands fa-telegram"></i>
+            </a>
+            <a href="https://discord.com/users/415800210787139594" target="_blank" class="social-icon" title="Discord">
+                <i class="fa-brands fa-discord"></i>
+            </a>
+            <a href="https://github.com/Lum1xi" target="_blank" class="social-icon" title="GitHub">
+                <i class="fa-brands fa-github"></i>
+            </a>
+            <a href="https://www.fiverr.com/users/lum1xi/" target="_blank" class="social-icon" title="Fiverr">  
+                <svg fill="#ffffff" width="32px" height="32px" viewBox="-2.5 -2 24 24" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin" class="jam jam-fiverr" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M16.25 16.25v-10h-10v-.625c0-1.034.841-1.875 1.875-1.875H10V0H8.125A5.632 5.632 0 0 0 2.5 5.625v.625H0V10h2.5v6.25H0V20h8.75v-3.75h-2.5V10h6.285v6.25H10V20h8.75v-3.75h-2.5z"></path><circle cx="14.375" cy="1.875" r="1.875"></circle></g></svg>
+
+            </a>
         </div>
-    </section>
-
-    <section id="freelance" class="hidden">
-        <h2 class="section-title">Freelance</h2>
-        <div class="about-container">
-            <div class="glass" style="padding: 30px;">
-                <h3>I can build for you:</h3>
-                <ul style="list-style: none; margin-top: 15px; color: var(--text-muted); line-height: 2.2;">
-                    <li><i class="fas fa-robot" style="color: var(--primary); width: 30px;"></i> Advanced Telegram Bots</li>
-                    <li><i class="fas fa-code" style="color: var(--primary); width: 30px;"></i> Python Automation Scripts</li>
-                    <li><i class="fas fa-gamepad" style="color: var(--primary); width: 30px;"></i> Roblox Scripting (Lua)</li>
-                </ul>
-            </div>
-            <div class="stats-container">
-                <div class="stat-box">
-                    <h4>4.9</h4> <p>FunPay Rating</p>
-                </div>
-                <div class="stat-box">
-                    <h4>95+</h4> <p>Reviews</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="hidden">
-        <h2 class="section-title">Get In Touch</h2>
-        <div class="contact-links">
-            <a href="https://t.me/Hub_H" target="_blank"><i class="fab fa-telegram"></i></a>
-            <a href="https://github.com/Lum1xi" target="_blank"><i class="fab fa-github"></i></a>
-        </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2025 Lum1xi & NebulaByte Studios.</p>
-    </footer>
+    </div>
 
     <script>
-        // --- 1. Canvas Starfield ---
-        const canvas = document.getElementById('canvas-container');
-        const ctx = canvas.getContext('2d');
-        let width, height;
-        let stars = [];
 
-        function resize() {
-            width = window.innerWidth;
-            height = window.innerHeight;
-            canvas.width = width;
-            canvas.height = height;
-        }
-
-        class Star {
-            constructor() { this.reset(); }
-            reset() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.size = Math.random() * 2;
-                this.speed = Math.random() * 0.3 + 0.1;
-                this.opacity = Math.random();
-                this.fade = Math.random() * 0.02 + 0.005;
-            }
-            update() {
-                this.y -= this.speed;
-                if (this.y < 0) this.reset();
-                this.opacity += this.fade;
-                if(this.opacity > 1 || this.opacity < 0) this.fade = -this.fade;
-            }
-            draw() {
-                ctx.fillStyle = `rgba(255, 255, 255, ${Math.abs(this.opacity)})`;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        function initStars() {
-            stars = [];
-            // Reduce star count on mobile for performance
-            const count = window.innerWidth < 768 ? 80 : 200;
-            for (let i = 0; i < count; i++) stars.push(new Star());
-        }
-
-        function animateStars() {
-            ctx.clearRect(0, 0, width, height);
-            stars.forEach(star => { star.update(); star.draw(); });
-            requestAnimationFrame(animateStars);
-        }
-
-        window.addEventListener('resize', () => { resize(); initStars(); });
-        resize(); initStars(); animateStars();
-
-        // --- 2. Typing Effect ---
-        const typingText = document.querySelector('.typing-text');
-        const words = ["Python Automation", "Telegram Bots", "Roblox Game Dev", "Minecraft Modding"];
-        let wordIndex = 0; let charIndex = 0; let isDeleting = false;
-
-        function type() {
-            const currentWord = words[wordIndex];
-            if (isDeleting) {
-                typingText.textContent = currentWord.substring(0, charIndex - 1);
-                charIndex--;
+        function toggleBio() {
+            const content = document.getElementById('bio-text');
+            const caret = document.getElementById('bio-caret');
+            
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                caret.style.transform = 'rotate(0deg)';
             } else {
-                typingText.textContent = currentWord.substring(0, charIndex + 1);
-                charIndex++;
+                content.style.display = 'none';
+                caret.style.transform = 'rotate(180deg)';
             }
-            let typeSpeed = isDeleting ? 50 : 100;
-            if (!isDeleting && charIndex === currentWord.length) {
-                typeSpeed = 2000; isDeleting = true;
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                wordIndex = (wordIndex + 1) % words.length;
-                typeSpeed = 500;
-            }
-            setTimeout(type, typeSpeed);
         }
-        document.addEventListener('DOMContentLoaded', type);
-
-        // --- 3. Scroll Reveal ---
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('show');
-            });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.hidden').forEach((el) => observer.observe(el));
-
-        // --- 4. 3D Tilt (Desktop Only) & Mobile Menu ---
-        const cards = document.querySelectorAll('.tilt-effect');
-        const isMobile = window.innerWidth <= 768;
-
-        if (!isMobile) {
-            cards.forEach(card => {
-                card.addEventListener('mousemove', (e) => {
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    const xRotation = -((y - rect.height/2) / rect.height * 15);
-                    const yRotation = (x - rect.width/2) / rect.width * 15;
-                    card.style.transform = `perspective(1000px) rotateX(${xRotation}deg) rotateY(${yRotation}deg) scale(1.02)`;
-                    card.style.borderColor = 'var(--primary)';
-                });
-                card.addEventListener('mouseleave', () => {
-                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
-                    card.style.borderColor = 'var(--glass-border)';
-                });
-            });
-        }
-
-        // --- Mobile Menu Logic ---
-        const menuBtn = document.getElementById('menu-btn');
-        const navLinks = document.getElementById('nav-links');
-        const navItems = document.querySelectorAll('.nav-links a');
-
-        menuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            // Change icon based on state
-            const icon = menuBtn.querySelector('i');
-            if(navLinks.classList.contains('active')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
-            } else {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            }
-        });
-
-        // Close menu when link is clicked
-        navItems.forEach(item => {
-            item.addEventListener('click', () => {
-                if(window.innerWidth <= 768) {
-                    navLinks.classList.remove('active');
-                    menuBtn.querySelector('i').classList.remove('fa-times');
-                    menuBtn.querySelector('i').classList.add('fa-bars');
-                }
-            });
-        });
-
-        // Smooth Scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-            });
-        });
     </script>
 </body>
 </html>
